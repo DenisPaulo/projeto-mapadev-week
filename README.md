@@ -9,9 +9,16 @@ Seleção de personagens estilo arcade (inspirado em telas de *character select*
 
 > Passe o mouse sobre um herói ou vilão e veja a arte e o nome grandes atualizarem na hora.
 
-**Demo online:** [denispaulo.github.io/projeto-mapadev-week](https://denispaulo.github.io/projeto-mapadev-week/)
+## Resultado
 
-## Demo
+Hover troca personagem grande em tempo real — 9 heróis/vilões, CSS + JS puro.
+
+![Preview — Character Select](docs/preview.jpg)
+
+**Demo:** [denispaulo.github.io/projeto-mapadev-week](https://denispaulo.github.io/projeto-mapadev-week/)
+
+## Como abrir localmente
+
 
 Abra o `index.html` no navegador (ou sirva a pasta com um servidor estático).
 
