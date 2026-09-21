@@ -1,97 +1,315 @@
-body{
-  font-family: 'ssf4' , Courier, monospace;
+body {
+  font-family: 'ssf4', Courier, monospace;
   background: var(--cor-secundaria);
+  color: var(--cor-padrao);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
 }
 
-body::before{
+body::before {
   content: '';
-  background-image: url("../imagens/1cYrMYF.gif");
+  background-image: url('../imagens/1cYrMYF.gif');
   background-repeat: no-repeat;
   background-size: cover;
-  position: absolute;
+  position: fixed;
+  inset: 0;
   width: 100%;
   height: 100%;
   opacity: 0.2;
+  z-index: 0;
+  pointer-events: none;
 }
 
-main{
-  min-height: 50vh;
+/* CRT scanlines + vignette */
+.crt-overlay {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    var(--cor-crt-scan) 2px,
+    var(--cor-crt-scan) 3px
+  );
+  mix-blend-mode: multiply;
+  opacity: 0.55;
+}
+
+.crt-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 55%,
+    rgba(0, 0, 0, 0.45) 100%
+  );
+}
+
+main {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding: 16px 12px 32px;
 }
 
-.cabecalho .titulo{
-z-index: 1;
-display: flex;
-justify-content: center;
-
+.cabecalho {
+  text-align: center;
+  margin-bottom: 12px;
 }
 
-.cabecalho .titulo{
+.cabecalho .titulo {
   color: var(--cor-titulo-fraco);
   text-transform: uppercase;
   font-size: 52px;
-  line-height: 102px;
+  line-height: 1.1;
   -webkit-text-stroke: 2px var(--cor-titulo-forte);
-}
-
-.selecao-de-personagens{
-display: flex;
-align-items: center;
-justify-content: center;
-}
-
-.selecao-de-personagens .personagem-grande{
-  text-align: center;
-  width: 30%;
-  height: 70vh;
   position: relative;
+  z-index: 1;
 }
 
-.selecao-de-personagens .personagem-grande img{
+.cabecalho .subtitulo {
+  font-family: 'command', sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.06em;
+  color: var(--cor-titulo-fraco);
+  margin-top: 8px;
+  text-shadow: 0 0 8px rgba(247, 122, 44, 0.6);
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 14px;
+  position: relative;
+  z-index: 2;
+}
+
+.filtros {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.filtro,
+.btn-mute,
+.btn-dismiss {
+  font-family: 'command', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  padding: 8px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 2px solid var(--cor-titulo-forte);
+  background: var(--cor-chip);
+  color: var(--cor-titulo-fraco);
+  transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.filtro:hover,
+.btn-mute:hover,
+.btn-dismiss:hover {
+  transform: scale(1.04);
+  box-shadow: 0 0 12px rgba(247, 122, 44, 0.45);
+}
+
+.filtro.ativo {
+  background: var(--cor-chip-ativo);
+  color: var(--cor-secundaria);
+  border-color: var(--cor-titulo-fraco);
+}
+
+.btn-mute {
+  border-color: var(--cor-azul-fraca);
+}
+
+.btn-mute[aria-pressed='true'] {
+  opacity: 0.85;
+}
+
+.selecao-de-personagens {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 8px;
+}
+
+.selecao-de-personagens .personagem-grande {
+  text-align: center;
+  width: 28%;
+  min-height: 70vh;
+  position: relative;
+  background: var(--cor-panel);
+  border-radius: 8px;
+  border: 2px solid transparent;
+  padding-bottom: 12px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.selecao-de-personagens .personagem-grande.slot-ativo {
+  border-color: var(--cor-titulo-forte);
+  box-shadow: 0 0 18px rgba(247, 122, 44, 0.35);
+}
+
+.selecao-de-personagens .personagem-grande .slot-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 3;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 2px 8px;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.slot-badge.slot-1p {
+  color: var(--cor-azul-media);
+  animation: text-glowing-blue 0.3s ease-in-out infinite alternate;
+}
+
+.slot-badge.slot-2p {
+  color: var(--cor-vermelha-fraca);
+  animation: text-glowing-red 0.3s ease-in-out infinite alternate;
+}
+
+.selecao-de-personagens .personagem-grande img {
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 38%;
   transform: translate(-50%, -50%);
+  max-height: 52%;
+  max-width: 90%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.15));
 }
 
-.selecao-de-personagens .personagem-grande .nome::before{
+.selecao-de-personagens .personagem-grande .nome::before {
   content: '';
-  height: 15px;
+  height: 12px;
   width: 100%;
   position: absolute;
-  bottom: -15px;
+  bottom: -12px;
   left: 0;
-  
 }
 
-.selecao-de-personagens .personagem-grande .nome h2{
-color: var(--cor-padrao);
-font-family: 'comand' , sans-serif;
-position: absolute;
-bottom: -15px;
-width: 100%;
-font-size: 27px;
+.selecao-de-personagens .personagem-grande .nome h2 {
+  color: var(--cor-padrao);
+  font-family: 'command', sans-serif;
+  position: absolute;
+  bottom: 28%;
+  left: 0;
+  width: 100%;
+  font-size: 24px;
+  text-shadow: 0 2px 6px #000;
+  z-index: 2;
 }
 
-.selecao-de-personagens .personagem-grande.personagem-jogador-1 .nome::before{
+.selecao-de-personagens .personagem-grande.personagem-jogador-1 .nome::before {
   background-color: var(--cor-azul-principal);
 }
 
-.selecao-de-personagens .personagem-grande.personagem-jogador-2 .nome::before{
+.selecao-de-personagens .personagem-grande.personagem-jogador-2 .nome::before {
   background-color: var(--cor-vermelha-principal);
 }
 
-.selecao-de-personagens .lista-de-personagens{
+.personagem-grande .bio {
+  position: absolute;
+  bottom: 14%;
+  left: 8%;
+  right: 8%;
+  font-family: 'command', sans-serif;
+  font-size: 11px;
+  line-height: 1.35;
+  color: var(--cor-marrom-fraco);
+  text-shadow: 0 1px 3px #000;
+  z-index: 2;
+  max-height: 3.6em;
+  overflow: hidden;
+}
+
+.personagem-grande .stats {
+  position: absolute;
+  bottom: 8px;
+  left: 8%;
+  right: 8%;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  align-items: center;
+  gap: 6px;
+}
+
+.stat-label {
+  font-family: 'command', sans-serif;
+  font-size: 10px;
+  text-align: left;
+  color: var(--cor-titulo-fraco);
+  text-transform: uppercase;
+}
+
+.stat-bar {
+  height: 8px;
+  background: var(--cor-stat-track);
+  border-radius: 2px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.stat-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 2px;
+  transition: width 0.25s ease;
+}
+
+.personagem-jogador-1 .stat-fill {
+  background: linear-gradient(90deg, var(--cor-azul-principal), var(--cor-azul-media));
+  box-shadow: 0 0 6px var(--cor-azul-principal);
+}
+
+.personagem-jogador-2 .stat-fill {
+  background: linear-gradient(90deg, var(--cor-vermelha-principal), var(--cor-vermelha-media));
+  box-shadow: 0 0 6px var(--cor-vermelha-principal);
+}
+
+.painel-central {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  max-width: 600px;
+  width: 44%;
+}
+
+.selecao-de-personagens .lista-de-personagens {
   display: flex;
   flex-wrap: wrap;
   max-width: 600px;
   justify-content: center;
   gap: 12px;
+  width: 100%;
 }
 
-.selecao-de-personagens .lista-de-personagens .personagem{
+.selecao-de-personagens .lista-de-personagens .personagem {
   border: 2px solid var(--cor-padrao);
   background-color: var(--cor-padrao);
   width: 30%;
@@ -101,51 +319,178 @@ font-size: 27px;
   border-radius: 5px;
   position: relative;
   transition: 0.15s ease-in-out;
+  outline: none;
 }
 
-.selecao-de-personagens .lista-de-personagens .personagem img{
+.selecao-de-personagens .lista-de-personagens .personagem img {
   width: 100%;
   height: 100%;
   border-radius: 5px;
+  object-fit: cover;
+  display: block;
 }
 
-.selecao-de-personagens .lista-de-personagens .personagem.selecionado{
+.selecao-de-personagens .lista-de-personagens .personagem.selecionado {
   border: 2px solid var(--cor-azul-media);
-  animation: c-glowing-blue .3s ease-in-out infinite;
-  animation-direction: alternate;
+  animation: c-glowing-blue 0.3s ease-in-out infinite alternate;
 }
 
-.selecao-de-personagens .lista-de-personagens .personagem.selecionado:hover{
-  animation: c-glowing-blue .3s ease-in-out infinite;
-  animation-direction: alternate;
+.selecao-de-personagens .lista-de-personagens .personagem.selecionado:hover,
+.selecao-de-personagens .lista-de-personagens .personagem.focado.selecionado {
   transform: scale(1.07);
-  z-index: 2;
+  z-index: 3;
 }
 
-.selecao-de-personagens .lista-de-personagens .personagem.jogador-2-selecionado{
+.selecao-de-personagens .lista-de-personagens .personagem.jogador-2-selecionado {
   border: 2px solid var(--cor-vermelha-fraca);
-  animation: c-glowing-red .3s ease-in-out infinite;
-  animation-direction: alternate;
+  animation: c-glowing-red 0.3s ease-in-out infinite alternate;
 }
 
-.selecao-de-personagens .lista-de-personagens .personagem.jogador-2-selecionado:hover{
-  animation: c-glowing-red .3s ease-in-out infinite;
-  animation-direction: alternate;
+.selecao-de-personagens .lista-de-personagens .personagem.jogador-2-selecionado:hover {
+  transform: scale(1.07);
+  z-index: 3;
 }
 
-.selecao-de-personagens .lista-de-personagens .personagem .tag{
-  font-family: 'Times New Roman' , Times, serif;
+.selecao-de-personagens .lista-de-personagens .personagem.travado-p1 {
+  box-shadow: inset 0 0 0 3px var(--cor-azul-principal);
+}
+
+.selecao-de-personagens .lista-de-personagens .personagem.travado-p2 {
+  box-shadow: inset 0 0 0 3px var(--cor-vermelha-principal);
+}
+
+.selecao-de-personagens .lista-de-personagens .personagem.travado-p1.travado-p2 {
+  box-shadow: inset 3px 0 0 3px var(--cor-azul-principal),
+    inset -3px 0 0 3px var(--cor-vermelha-principal);
+}
+
+.role-tag {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  z-index: 4;
+  font-family: 'command', sans-serif;
+  font-size: 9px;
+  padding: 2px 5px;
+  border-radius: 2px;
+  background: rgba(0, 0, 0, 0.7);
+  color: var(--cor-padrao);
+  letter-spacing: 0.03em;
+}
+
+.role-tag.role-heroi {
+  color: var(--cor-azul-media);
+}
+
+.role-tag.role-vilao {
+  color: var(--cor-vermelha-media);
+}
+
+.role-tag.role-anti-heroi {
+  color: var(--cor-roxa-anti);
+}
+
+.tags {
   position: absolute;
   top: 5px;
   left: 5px;
-  color: var(--cor-azul-media);
-  transition: opacity .3 ease-in-out;
-  animation: text-glowing-blue .3s ease-in-out infinite;
-  animation: alternate;
+  display: flex;
+  gap: 4px;
+  z-index: 4;
 }
 
-.selecao-de-personagens .lista-de-personagens .personagem.selecionado .tag{
-  display: block;
-  animation: text-glowing-red .3s ease-in-out infinite;
-  animation-direction: alternate;
+.selecao-de-personagens .lista-de-personagens .personagem .tag {
+  font-family: 'Times New Roman', Times, serif;
+  color: var(--cor-azul-media);
+  background: rgba(0, 0, 0, 0.55);
+  padding: 0 4px;
+  border-radius: 2px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.tag.tag-1p {
+  color: var(--cor-azul-media);
+  animation: text-glowing-blue 0.3s ease-in-out infinite alternate;
+}
+
+.tag.tag-2p {
+  color: var(--cor-vermelha-fraca);
+  animation: text-glowing-red 0.3s ease-in-out infinite alternate;
+}
+
+.dicas-teclado {
+  font-family: 'command', sans-serif;
+  font-size: 11px;
+  color: var(--cor-marrom-fraco);
+  text-align: center;
+  opacity: 0.9;
+  line-height: 1.5;
+}
+
+.dicas-teclado kbd {
+  display: inline-block;
+  font-family: 'ssf4', monospace;
+  font-size: 10px;
+  padding: 2px 5px;
+  margin: 0 1px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* FIGHT overlay */
+.fight-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(2px);
+}
+
+.fight-overlay[hidden] {
+  display: none !important;
+}
+
+.fight-content {
+  text-align: center;
+  animation: fight-slam 0.55s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+
+.fight-vs {
+  font-family: 'command', sans-serif;
+  font-size: clamp(18px, 4vw, 28px);
+  color: var(--cor-titulo-fraco);
+  margin-bottom: 12px;
+  letter-spacing: 0.08em;
+}
+
+.fight-vs span {
+  color: var(--cor-titulo-forte);
+  margin: 0 10px;
+  -webkit-text-stroke: 1px var(--cor-padrao);
+}
+
+.fight-title {
+  font-family: 'ssf4', Courier, monospace;
+  font-size: clamp(64px, 16vw, 140px);
+  color: var(--cor-titulo-fraco);
+  -webkit-text-stroke: 3px var(--cor-vermelha-principal);
+  text-shadow: 0 0 24px var(--cor-vermelha-principal),
+    0 0 48px var(--cor-titulo-forte);
+  animation: fight-pulse 0.8s ease-in-out infinite alternate;
+  line-height: 1;
+}
+
+.btn-dismiss {
+  margin-top: 28px;
+  font-size: 16px;
+  padding: 10px 22px;
+}
+
+body.fight-ativo .crt-overlay {
+  opacity: 0.7;
 }

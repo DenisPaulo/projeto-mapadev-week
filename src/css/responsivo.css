@@ -1,5 +1,5 @@
-@media (max-width: 1280px){
-  .cabecalho .titulo{
+@media (max-width: 1280px) {
+  .cabecalho .titulo {
     font-size: 40px;
   }
 
@@ -7,23 +7,154 @@
     max-width: 330px;
   }
 
-  .selecao-de-personagens .lista-de-personagens .personagem{
+  .selecao-de-personagens .lista-de-personagens .personagem {
     width: 100px;
     height: 100px;
   }
+
+  .selecao-de-personagens .personagem-grande {
+    width: 30%;
+    min-height: 60vh;
+  }
+
+  .selecao-de-personagens .personagem-grande .nome h2 {
+    font-size: 20px;
+    bottom: 30%;
+  }
+
+  .personagem-grande .bio {
+    font-size: 10px;
+    bottom: 16%;
+  }
+
+  .stat {
+    grid-template-columns: 58px 1fr;
+  }
+
+  .stat-label {
+    font-size: 9px;
+  }
 }
 
-@media (max-width: 767px){
-  body::before{
-    background-image: url("../imagens/bg-mobile.jpg");
+@media (max-width: 900px) {
+  .selecao-de-personagens {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .painel-central {
+    width: 100%;
+    order: 0;
+  }
+
+  .selecao-de-personagens .personagem-grande {
+    width: min(420px, 96%);
+    min-height: 280px;
+    height: auto;
+    padding-top: 12px;
+    padding-bottom: 100px;
+  }
+
+  .selecao-de-personagens .personagem-grande img {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+    max-height: 180px;
+    margin: 28px auto 8px;
+    display: block;
+  }
+
+  .selecao-de-personagens .personagem-grande .nome h2 {
+    position: relative;
+    bottom: auto;
+    margin-top: 8px;
+  }
+
+  .selecao-de-personagens .personagem-grande .nome::before {
+    display: none;
+  }
+
+  .personagem-grande .bio {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    margin: 6px 12px 0;
+    max-height: none;
+  }
+
+  .personagem-grande .stats {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    margin: 10px 12px 0;
+  }
+
+  .personagem-jogador-1 {
+    order: 1;
+  }
+
+  .personagem-jogador-2 {
+    order: 2;
+  }
+
+  .crt-overlay {
+    opacity: 0.35;
+  }
+}
+
+@media (max-width: 767px) {
+  body::before {
+    background-image: url('../imagens/bg-mobile.jpg');
     background-repeat: no-repeat;
     background-position: center;
+    background-size: cover;
     opacity: 1;
   }
 
-  main{
-    padding: 0 5px;
+  main {
+    padding: 8px 5px 24px;
     justify-content: start;
-    
+  }
+
+  .cabecalho .titulo {
+    font-size: 28px;
+    -webkit-text-stroke: 1.5px var(--cor-titulo-forte);
+  }
+
+  .cabecalho .subtitulo {
+    font-size: 13px;
+  }
+
+  .filtro,
+  .btn-mute {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  .dicas-teclado {
+    font-size: 10px;
+  }
+
+  .fight-title {
+    -webkit-text-stroke: 2px var(--cor-vermelha-principal);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crt-overlay,
+  .selecao-de-personagens .lista-de-personagens .personagem.selecionado,
+  .selecao-de-personagens .lista-de-personagens .personagem.jogador-2-selecionado,
+  .fight-title,
+  .fight-content,
+  .slot-badge,
+  .tag {
+    animation: none !important;
+  }
+
+  .stat-fill {
+    transition: none;
   }
 }
