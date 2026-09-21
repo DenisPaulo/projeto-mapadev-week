@@ -5,7 +5,7 @@
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/docs/Web/JavaScript)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
-Tela de **seleção de personagens em modo VS** estilo arcade, evoluíuda a partir do projeto do **MapaDev Week** — HTML, CSS e JavaScript puro (sem frameworks, sem CDN).
+Tela de **seleção de personagens em modo VS** estilo arcade, evoluída a partir do projeto do **MapaDev Week** — HTML, CSS e JavaScript puro (sem frameworks, sem CDN).
 
 > Trave o 1P, depois o 2P, e prepare-se para o **FIGHT!**  
 > Funciona abrindo o `index.html` via `file://` ou pelo GitHub Pages.
@@ -18,13 +18,16 @@ Tela de **seleção de personagens em modo VS** estilo arcade, evoluíuda a part
 
 **Demo:** [denispaulo.github.io/projeto-mapadev-week](https://denispaulo.github.io/projeto-mapadev-week/)
 
-## Como abrir localmente
+## Como abrir
 
-Abra o `index.html` no navegador **ou** sirva a pasta com um servidor estático:
+1. **Demo online:** [denispaulo.github.io/projeto-mapadev-week](https://denispaulo.github.io/projeto-mapadev-week/)
+2. **No PC:** abra o `index.html` no navegador (duplo clique — funciona via `file://`)
+
+Servidor local é opcional (útil se o navegador restringir algo):
 
 ```bash
-# opcional — servidor local simples
-npx --yes serve .
+# opcional — se tiver Python no PATH
+python -m http.server 5500
 ```
 
 ## O que tem nesta versão
