@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Escolha seu personagem - MapaDev Week</title>
+    <meta
+      name="description"
+      content="Seleção de personagens em modo VS estilo arcade — MapaDev Week"
+    />
+    <title>VS Mode — Character Select | MapaDev Week</title>
     <link rel="stylesheet" href="./src/css/variaveis.css" />
     <link rel="stylesheet" href="./src/css/reset.css" />
     <link rel="stylesheet" href="./src/css/fontes.css" />
@@ -13,101 +17,150 @@
     <link rel="stylesheet" href="./src/css/responsivo.css" />
   </head>
   <body>
+    <div class="crt-overlay" aria-hidden="true"></div>
+
     <main>
       <header class="cabecalho">
         <h1 class="titulo">Character Select</h1>
+        <p class="subtitulo" id="status-slot">Escolha o jogador 1</p>
+        <div class="toolbar">
+          <div
+            class="filtros"
+            role="group"
+            aria-label="Filtrar por alinhamento"
+          >
+            <button
+              type="button"
+              class="filtro ativo"
+              data-filtro="todos"
+              aria-pressed="true"
+            >
+              Todos
+            </button>
+            <button
+              type="button"
+              class="filtro"
+              data-filtro="heroi"
+              aria-pressed="false"
+            >
+              Heróis
+            </button>
+            <button
+              type="button"
+              class="filtro"
+              data-filtro="vilao"
+              aria-pressed="false"
+            >
+              Vilões
+            </button>
+          </div>
+          <button
+            type="button"
+            id="btn-mute"
+            class="btn-mute"
+            aria-pressed="true"
+            title="Som desligado (padrão)"
+          >
+            🔇 Mudo
+          </button>
+        </div>
       </header>
+
       <div class="selecao-de-personagens">
-        <div class="personagem-grande personagem-jogador-1">
+        <aside class="personagem-grande personagem-jogador-1" aria-live="polite">
+          <span class="slot-badge slot-1p">1P</span>
           <img
             src="./src/imagens/hulk.png"
-            alt="Personagem selecionado jogador 1"
+            alt="Personagem selecionado do jogador 1: Hulk"
             id="personagem-jogador-1"
           />
           <div class="nome">
             <h2 id="nome-jogador-1">Hulk</h2>
           </div>
-        </div>
+          <p class="bio" id="bio-jogador-1"></p>
+          <div class="stats" id="stats-jogador-1" aria-label="Atributos do jogador 1">
+            <div class="stat">
+              <span class="stat-label">Poder</span>
+              <div class="stat-bar" role="meter" aria-valuemin="0" aria-valuemax="10">
+                <div class="stat-fill" data-stat="power"></div>
+              </div>
+            </div>
+            <div class="stat">
+              <span class="stat-label">Vel.</span>
+              <div class="stat-bar" role="meter" aria-valuemin="0" aria-valuemax="10">
+                <div class="stat-fill" data-stat="speed"></div>
+              </div>
+            </div>
+            <div class="stat">
+              <span class="stat-label">Defesa</span>
+              <div class="stat-bar" role="meter" aria-valuemin="0" aria-valuemax="10">
+                <div class="stat-fill" data-stat="defense"></div>
+              </div>
+            </div>
+          </div>
+        </aside>
 
-        <ul class="lista-de-personagens">
-          <li class="personagem" id="thor" data-name="Thor">
-            <span class="tag">1P</span>
-            <img src="./src/imagens/thor.jpg" alt="Personagem Thor" />
-          </li>
+        <section class="painel-central">
+          <ul class="lista-de-personagens" id="lista-personagens" role="listbox" aria-label="Elenco de personagens"></ul>
+          <p class="dicas-teclado">
+            <kbd>←</kbd><kbd>→</kbd><kbd>↑</kbd><kbd>↓</kbd> navegar ·
+            <kbd>Enter</kbd> travar ·
+            <kbd>R</kbd> aleatório · clique para reescolher
+          </p>
+        </section>
 
-          <li class="personagem" id="homem-de-ferro" data-name="Homem de ferro">
-            <span class="tag">1P</span>
-            <img
-              src="./src/imagens/homem-de-ferro.jpg"
-              alt="Personagem Homem de ferro"
-            />
-          </li>
-
-          <li class="personagem" id="viuva-negra" data-name="Viúva Negra">
-            <span class="tag">1P</span>
-            <img
-              src="./src/imagens/viuva-negra.jpg"
-              alt="Personagem Viúva Negra"
-            />
-          </li>
-
-          <li class="personagem selecionado" id="hulk" data-name="Hulk">
-            <span class="tag">1P</span>
-            <img src="./src/imagens/hulk.jpg" alt="Personagem Hulk" />
-          </li>
-
-          <li
-            class="personagem"
-            id="capitao-america"
-            data-name="Capitão América"
-          >
-            <span class="tag">1P</span>
-            <img
-              src="./src/imagens/capitao-america.jpg"
-              alt="Personagem Capitão América"
-            />
-          </li>
-
-          <li class="personagem" id="ultron" data-name="Ultron">
-            <span class="tag">1P</span>
-            <img src="./src/imagens/ultron.jpg" alt="Personagem Ultron" />
-          </li>
-
-          <li class="personagem" id="doutor-doom" data-name="Doutor Doom">
-            <span class="tag">1P</span>
-            <img
-              src="./src/imagens/doutor-doom.jpg"
-              alt="Personagem Doutor Doom"
-            />
-          </li>
-
-          <li class="personagem" id="nova" data-name="Nova">
-            <span class="tag">1P</span>
-            <img src="./src/imagens/nova.jpg" alt="Personagem Nova" />
-          </li>
-
-          <li
-            class="personagem jogador-2-selecionado"
-            id="fenix"
-            data-name="Fênix"
-          >
-            <span class="tag">2P</span>
-            <img src="./src/imagens/fenix.jpg" alt="Personagem Fênix" />
-          </li>
-        </ul>
-
-        <div class="personagem-grande personagem-jogador-2">
+        <aside class="personagem-grande personagem-jogador-2" aria-live="polite">
+          <span class="slot-badge slot-2p">2P</span>
           <img
             src="./src/imagens/fenix.png"
-            alt="Personagem selecionado jogador 2"
+            alt="Personagem selecionado do jogador 2: Fênix"
             id="personagem-jogador-2"
           />
           <div class="nome">
-            <h2>Fênix</h2>
+            <h2 id="nome-jogador-2">Fênix</h2>
           </div>
-        </div>
+          <p class="bio" id="bio-jogador-2"></p>
+          <div class="stats" id="stats-jogador-2" aria-label="Atributos do jogador 2">
+            <div class="stat">
+              <span class="stat-label">Poder</span>
+              <div class="stat-bar" role="meter" aria-valuemin="0" aria-valuemax="10">
+                <div class="stat-fill" data-stat="power"></div>
+              </div>
+            </div>
+            <div class="stat">
+              <span class="stat-label">Vel.</span>
+              <div class="stat-bar" role="meter" aria-valuemin="0" aria-valuemax="10">
+                <div class="stat-fill" data-stat="speed"></div>
+              </div>
+            </div>
+            <div class="stat">
+              <span class="stat-label">Defesa</span>
+              <div class="stat-bar" role="meter" aria-valuemin="0" aria-valuemax="10">
+                <div class="stat-fill" data-stat="defense"></div>
+              </div>
+            </div>
+          </div>
+        </aside>
       </div>
     </main>
+
+    <div
+      id="fight-overlay"
+      class="fight-overlay"
+      hidden
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="fight-title"
+    >
+      <div class="fight-content">
+        <p class="fight-vs" id="fight-matchup">Hulk <span>VS</span> Fênix</p>
+        <h2 class="fight-title" id="fight-title">FIGHT!</h2>
+        <button type="button" id="btn-dismiss-fight" class="btn-dismiss">
+          Reescolher
+        </button>
+      </div>
+    </div>
+
     <script src="./src/js/index.js"></script>
   </body>
 </html>

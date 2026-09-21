@@ -1,19 +1,28 @@
 :root {
-    --cor-vermelha-principal: #D60223;
-    --cor-vermelha-media: #f89284;
-    --cor-vermelha-fraca: #ffbebe;
+  --cor-vermelha-principal: #d60223;
+  --cor-vermelha-media: #f89284;
+  --cor-vermelha-fraca: #ffbebe;
 
-    --cor-marrom-fraco: #ebd5d2;
+  --cor-marrom-fraco: #ebd5d2;
 
-    --cor-azul-principal: #0271F7;
-    --cor-azul-media: #d3ffff;
-    --cor-azul-fraca: #8fbff8;
+  --cor-azul-principal: #0271f7;
+  --cor-azul-media: #d3ffff;
+  --cor-azul-fraca: #8fbff8;
 
-    --cor-roxa-fraca: #c2c2f1;
+  --cor-roxa-fraca: #c2c2f1;
+  --cor-roxa-anti: #b388ff;
 
-    --cor-titulo-fraco: #faefd8;
-    --cor-titulo-forte: #f77a2c;
+  --cor-titulo-fraco: #faefd8;
+  --cor-titulo-forte: #f77a2c;
 
-    --cor-padrao: #ffffff;
-    --cor-secundaria: #000000;
+  --cor-padrao: #ffffff;
+  --cor-secundaria: #000000;
+
+  --cor-crt-scan: rgba(0, 0, 0, 0.28);
+  --cor-stat-track: rgba(255, 255, 255, 0.15);
+  --cor-stat-fill-1p: #3da5ff;
+  --cor-stat-fill-2p: #ff4d6d;
+  --cor-panel: rgba(0, 0, 0, 0.55);
+  --cor-chip: rgba(255, 255, 255, 0.08);
+  --cor-chip-ativo: #f77a2c;
 }
