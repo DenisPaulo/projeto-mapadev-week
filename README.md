@@ -1,16 +1,18 @@
-# Character Select VS Mode — MapaDev Week
+# Character Select VS · Denis Paulo
 
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/docs/Web/HTML)
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/docs/Web/CSS)
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/docs/Web/JavaScript)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
-Tela de **seleção de personagens em modo VS** estilo arcade, evoluída a partir do projeto do **MapaDev Week** — HTML, CSS e JavaScript puro (sem frameworks, sem CDN).
+Tela de **seleção de personagens em modo VS** estilo arcade — HTML, CSS e JavaScript puro (sem frameworks, sem CDN). Base MapaDev Week, reescrito para modo VS com lock, teclado e deep link.
 
 > Trave o 1P, depois o 2P, e prepare-se para o **FIGHT!**  
 > Funciona abrindo o `index.html` via `file://` ou pelo GitHub Pages.
 
 ## Resultado
+
+![Demo animada — Character Select VS](docs/preview.gif)
 
 ![Preview — VS Mode Character Select](docs/preview.jpg)
 
@@ -36,7 +38,7 @@ python -m http.server 5500
 - **FIGHT!** — overlay dramático quando ambos estão travados (Reescolher / Esc / Enter)
 - **Filtros** — chips Todos / Heróis / Vilões (+ tag Anti-herói na Fênix)
 - **Atributos** — barras fictícias de Poder, Velocidade e Defesa
-- **Teclado** — setas para focar, Enter para travar, `R` para aleatório, `1`/`2` para reabrir o slot
+- **Teclado** — setas para focar, Enter para travar, `R` para aleatório, `1`/`2` para reabrir o slot (dicas ocultas em toque)
 - **Visual CRT** — scanlines, brilho nos selecionados (mais suave no mobile)
 - **Som** — beeps via Web Audio API; **mudo por padrão**; botão na UI
 - **URL compartilhável** — `?p1=hulk&p2=fenix` (atualiza com `replaceState` ao travar)
@@ -75,7 +77,7 @@ Exemplo de link:
 ```
 projeto-mapadev-week/
 ├── index.html
-├── docs/                 # previews do README
+├── docs/                 # favicon, previews do README (JPG + GIF)
 └── src/
     ├── css/              # variáveis, reset, estilos, animações, responsivo, fontes
     ├── js/               # lógica VS (lock, filtro, teclado, som, URL, storage)
@@ -83,13 +85,16 @@ projeto-mapadev-week/
     └── fontes/           # tipografia do layout
 ```
 
-## Aprendizados
+## Decisões
 
-- Estado de seleção em dois slots (preview vs lock)
-- DOM dinâmico + acessibilidade básica (`aria-*`, `role`)
-- Web Audio sem autoplay agressivo
-- Persistência com `localStorage` e deep-link via query string
-- CSS com variáveis, animações e media queries (incluindo `prefers-reduced-motion`)
+- **Mute default** — Web Audio sem autoplay agressivo; som só sob demanda
+- **Prioridade de estado** — URL (`?p1=&p2=`) → `localStorage` → Hulk vs Fênix
+- **Stats fictícias** — barras só para UX / feedback visual, sem combate por trás
+
+## Próximo (de propósito não feito)
+
+- Combate real (hitboxes, rounds, IA)
+- Framework / bundler — o ponto do projeto é vanilla + Pages com `file://`
 
 ## Licença
 
@@ -97,4 +102,4 @@ Distribuído sob a licença [MIT](LICENSE).
 
 ---
 
-Feito por [Denis Paulo](https://github.com/DenisPaulo) · projeto do MapaDev Week
+Feito por [Denis Paulo](https://github.com/DenisPaulo) · fan project Marvel, sem fins comerciais
